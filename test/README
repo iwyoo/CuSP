@@ -1,1 +1,0 @@
-nvcc main.cu -std=c++11

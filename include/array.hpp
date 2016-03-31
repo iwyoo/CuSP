@@ -4,22 +4,17 @@
 
 namespace cusp {
 
-template <typename TElem = float, typename TInt = int>
+template <typename TElem = float, typename TInt = unsigned int, unsigned int nDim = 1>
 class array : public SmartPointer<TElem, TInt> {
 	public :
-		typedef TElem ElemType;
-		typedef TInt  SizeType;
-
-		void operator+=(const TElem value); // to test
-
-		// friends function
-		// ones
-		// zeros
-		// rand
+		void operator+=(const ElemType value); // to test
+		
+		friend array<TElem, TInt, nDIm> ones(TInt n,...);
+		friend array<TElem, TInt, nDIm> zeros(TInt n,...);
+		friend array<TElem, TInt, nDIm> rand(TInt n,...);
 
 	private :
-		// dimension info?
-
+		Dim dim[nDim];
 };
 
 }

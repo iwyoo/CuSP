@@ -1,15 +1,14 @@
-
-#include "SmartPointer.hpp"
+#include "cuda.h"
+#include "array.cuh"
 
 namespace cusp {
 
 template <typename TElem, typename TInt>
-void array<TElem, TInt>::operator+=(const TElem value)
+void array::operator+=(const TElem value)
 {
-	ElemType const *gpuPtr = this->sharedDataPtr->getGpuPtr();
-
-	// gpu operation
-
+	ElemType const *gpuPtr = getGpuPtr();
+	assignWithAdd<<< 1, getElemNum() >>>(gpuPtr, value);
+	cudaDeviceSynchronize();
 }
 
 }
