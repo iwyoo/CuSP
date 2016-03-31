@@ -17,6 +17,9 @@ class SharedData {
 
 		void synchToCPU();
 		void synchToGPU();
+		ElemType* getGpuPtr() const { return gpuPtr; }
+		SizeType getElemNum() const { return elemNum; }
+		SizeType getDataSize() const { return dataSize; }
 
 	private:
 		ElemType *cpuPtr;

@@ -1,8 +1,7 @@
-
 #pragma once
 
-#include "SharedData.hpp"
 #include <memory>
+#include "SharedData.hpp"
 
 namespace cusp {
 
@@ -18,8 +17,18 @@ class SmartPointer {
 		SmartPointer(ElemType *_cpuPtr, 
 					 SizeType _elemNum, bool deepCopy = false); 
 		~SmartPointer();
+
+	protected :
+		ElemType* getGpuPtr() const 
+			{ return sharedDataPtr->getGpuPtr(); }
+		SizeType getElemNum() const 
+			{ return sharedDataPtr->GetElemNum(); }
+		SizeType getDataSize() const 
+			{ return sharedDataPtr->GetDataSize(); }
+
 	private:
 		 SharedDataPtrType sharedDataPtr;
+
 };
 
 }
