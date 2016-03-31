@@ -1,7 +1,6 @@
-#CuSP - CUDA Smart Pointer object library
+#CuSP 
 
-### A simple way to handle CUDA gpu memory by Smart Pointer
-
+### CUDA Smart Pointer object library 
 - example
 ```
 if ( scope ) {
