@@ -1,7 +1,7 @@
 #pragma once
 
-#include "SmartPointer.hpp"
-#include "Shape.hpp"
+#include "Basic/SmartPointer.hpp"
+#include "Array/Shape.hpp"
 
 namespace cusp {
 
@@ -9,7 +9,6 @@ template <typename TElem = float, typename TInt = unsigned int, unsigned int nDi
 class array : public SmartPointer<TElem, TInt> {
 	public :
 		// To Do List
-		// constructor
 		// generater wrapper (ones rand)
 		// operator overloading
 		// reshape method
@@ -17,10 +16,10 @@ class array : public SmartPointer<TElem, TInt> {
 		array(TElem *_cpuPtr, TInt _elemNum, Shape<TInt,nDims> _shape,
 			bool wrapped=false, bool deepCopy=false);
 	
-		void operator+=(const ElemType value);
-		
 		template <typename ...Dims>
 		friend array zeros(Dims... dims);
+
+		void operator+=(const ElemType value);
 
 		~array();
 
@@ -31,4 +30,4 @@ class array : public SmartPointer<TElem, TInt> {
 
 }
 
-#include "array.tpp"
+#include "Array/Array.tpp"

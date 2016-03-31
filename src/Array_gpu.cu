@@ -1,4 +1,4 @@
-#include "array.cuh"
+#include "Array/Array_gpu.cuh"
 
 namespace cusp {
 

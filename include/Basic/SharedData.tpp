@@ -1,3 +1,5 @@
+#include "cuda.h"
+
 namespace cusp {
 
 template <typename TElem, typename TInt>

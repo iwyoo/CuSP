@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "SharedData.hpp"
+#include "basic/SharedData.hpp"
 
 namespace cusp {
 
@@ -26,4 +26,4 @@ class SmartPointer {
 
 }
 
-#include "SmartPointer.tpp"
+#include "basic/SmartPointer.tpp"

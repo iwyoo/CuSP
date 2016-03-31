@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstring>
-#include "cuda.h"
 
 namespace cusp {
 
@@ -26,4 +25,4 @@ class SharedData {
 
 }
 
-#include "SharedData.tpp"
+#include "basic/SharedData.tpp"
