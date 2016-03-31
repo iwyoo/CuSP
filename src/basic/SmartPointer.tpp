@@ -1,6 +1,5 @@
 namespace cusp {
 
-// constructor
 template <typename TElem, typename TInt>
 SmartPointer<TElem,TInt>::
 SmartPointer(TElem *_cpuPtr, TInt _elemNum, bool deepCopy)
