@@ -1,15 +1,17 @@
-#include "cuda.h"
+#include "SharedData.hpp" 
+#include <cuda_runtime_api.h>
+#include <cuda.h>
 
 namespace cusp {
 
 template <typename TElem, typename TInt>
 SharedData<TElem,TInt>::
-SharedData(ElemType *_cpuPtr, IntegerType _elemNum, bool _deepCopy)
-: elemNum(_elemNum), dataSize(_elemNum*sizeof(ElemType)), 
+SharedData(TElem *_cpuPtr, TInt _elemNum, bool _deepCopy)
+: elemNum(_elemNum), dataSize(_elemNum*sizeof(TElem)), 
   cpuPtr(_cpuPtr), deepCopy(_deepCopy)
 {
 	if (deepCopy) {
-		cpuPtr = new ElemType[elemNum];
+		cpuPtr = new TElem[elemNum];
 		std::memcpy(cpuPtr, _cpuPtr, dataSize);
 	} else cpuPtr = _cpuPtr;
 
@@ -37,4 +39,9 @@ SharedData<TElem,TInt>::synchToGPU()
 	cudaMemcpy( gpuPtr, cpuPtr, dataSize, cudaMemcpyHostToDevice );
 }
 
+template class SharedData<float, unsigned int>;
+//template class SharedData<float, unsigned long long>;
+//template class SharedData<double, unsigned int>;
+//template class SharedData<double, unsigned long long>;
 }
+

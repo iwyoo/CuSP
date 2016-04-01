@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "basic/SharedData.hpp"
+#include "SharedData.hpp"
 
 namespace cusp {
 
@@ -12,18 +12,21 @@ class SmartPointer {
 		typedef std::shared_ptr<SharedDataType> SharedDataPtrType;
 
 		SmartPointer(TElem *_cpuPtr, TInt _elemNum, bool deepCopy=false); 
-	
-	protected:
-		TElem* const getCpuPtr() const { return sharedDataPtr->cpuPtr; }
-		TElem* const getGpuPtr() const { return sharedDataPtr->gpuPtr; }
-		TInt getElemNum() const { return sharedDataPtr->elemNum; }
-		TInt getDataSize() const { return sharedDataPtr->dataSize; }
 
+	protected:
+
+		TElem* const getCpuPtr() const 
+			{ return sharedDataPtr->getCpuPtr(); }
+		TElem* const getGpuPtr() const 
+			{ return sharedDataPtr->getGpuPtr(); }
+		TInt getElemNum() const 
+			{ return sharedDataPtr->getElemNum(); }
+		TInt getDataSize() const 
+			{ return sharedDataPtr->getDataSize(); }
+	
 	private:
 		 SharedDataPtrType sharedDataPtr;
 
 };
 
 }
-
-#include "basic/SmartPointer.tpp"
