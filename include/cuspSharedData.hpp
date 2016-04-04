@@ -13,7 +13,6 @@ class SharedData {
 
 		void synchToCPU();
 		void synchToGPU();
-
 		TElem* const getCpuPtr() const { return cpuPtr; }
 		TElem* const getGpuPtr() const { return gpuPtr; }
 		TInt getElemNum() const { return elemNum; }

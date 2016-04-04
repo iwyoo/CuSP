@@ -1,2 +1,4 @@
 #include "cusp_sub/cuspSmartPointer.hpp"
 #include "cusp_sub/cuspSharedData.hpp"
+#include "cusp_sub/cuspMatrix.hpp"
+#include "cusp_sub/cuspCUDA.hpp"

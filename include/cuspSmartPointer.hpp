@@ -14,6 +14,12 @@ class SmartPointer {
 		SmartPointer(TElem *_cpuPtr, TInt _elemNum, bool deepCopy=false); 
 
 	protected:
+		// virtual void synch() = 0; // future
+
+		void synchToCPU()
+			{ sharedDataPtr->synchToCPU(); }
+		void synchToGPU()
+			{ sharedDataPtr->synchToGPU(); }
 		TElem* const getCpuPtr() const 
 			{ return sharedDataPtr->getCpuPtr(); }
 		TElem* const getGpuPtr() const 
@@ -24,8 +30,7 @@ class SmartPointer {
 			{ return sharedDataPtr->getDataSize(); }
 	
 	private:
-		 SharedDataPtrType sharedDataPtr;
-
+		SharedDataPtrType sharedDataPtr;
 };
 
 }
