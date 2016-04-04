@@ -2,7 +2,7 @@
 
 namespace cusp {
 
-template <typename TElem = float, typename TInt = unsigned int>
+template <typename TElem, typename TInt>
 void matrix_element_add(TElem *a, TElem b, TInt row, TInt col);
 
 }

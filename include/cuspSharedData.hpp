@@ -4,7 +4,7 @@
 
 namespace cusp {
 
-template <typename TElem = float, typename TInt = unsigned int>
+template <typename TElem, typename TInt>
 class SharedData {
 	public :
 		SharedData(TElem *_cpuPtr, TInt _elemNum, 

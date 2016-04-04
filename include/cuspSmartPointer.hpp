@@ -5,7 +5,7 @@
 
 namespace cusp {
 
-template <typename TElem = float, typename TInt = unsigned int>
+template <typename TElem, typename TInt>
 class SmartPointer {
 	public:
 		typedef SharedData<TElem, TInt> SharedDataType;

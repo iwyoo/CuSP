@@ -4,7 +4,7 @@
 
 namespace cusp {
 
-template <typename TElem = float, typename TInt = unsigned int>
+template <typename TElem, typename TInt>
 class Matrix : public SmartPointer<TElem, TInt> {
 	public:
 		Matrix(TInt row, TInt col, TElem *_cpuPtr, TInt _elemNum,
@@ -30,9 +30,8 @@ class Matrix : public SmartPointer<TElem, TInt> {
 			// future : To GPU synch for CPU-only operation.
 		
 		// dotMult(); // future
-		// print(); // future
-		// size(); // future
-
+		
+		void print();
 		TInt getRow() const { return row; }
 		TInt getCol() const { return col; }
 		
@@ -44,14 +43,11 @@ class Matrix : public SmartPointer<TElem, TInt> {
 			// bool cpuDirtyFlag; // future : For CPU-only operation
 };
 
-
-template <typename TElem = float, typename TInt = unsigned int> 
+template <typename TElem = float, typename TInt = unsigned int>
 Matrix<TElem, TInt> ones(TInt row, TInt col, 
 		bool autoSynch=false, TElem *_cpuPtr=NULL);
 
-/*
-template <typename TElem = float, typename TInt = unsigned int> 
+template <typename TElem = float, typename TInt = unsigned int>
 Matrix<TElem, TInt> zeros(TInt row, TInt col,
 		bool autoSynch=false, TElem *_cpuPtr=NULL);
-*/
 }
