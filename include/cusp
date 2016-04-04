@@ -1,3 +1,2 @@
-
-#include "SmartPointer.hpp"
-#include "SharedData.hpp"
+#include "cusp_sub/cuspSmartPointer.hpp"
+#include "cusp_sub/cuspSharedData.hpp"

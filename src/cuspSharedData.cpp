@@ -1,4 +1,4 @@
-#include "SharedData.hpp" 
+#include "cuspSharedData.hpp" 
 #include <cuda_runtime_api.h>
 #include <cuda.h>
 

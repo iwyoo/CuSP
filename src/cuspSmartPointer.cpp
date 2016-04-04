@@ -1,5 +1,5 @@
-#include "SmartPointer.hpp"
-#include "SharedData.hpp"
+#include "cuspSmartPointer.hpp"
+#include "cuspSharedData.hpp"
 #include <memory>
 
 namespace cusp {

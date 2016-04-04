@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "SharedData.hpp"
+#include "cuspSharedData.hpp"
 
 namespace cusp {
 
@@ -14,7 +14,6 @@ class SmartPointer {
 		SmartPointer(TElem *_cpuPtr, TInt _elemNum, bool deepCopy=false); 
 
 	protected:
-
 		TElem* const getCpuPtr() const 
 			{ return sharedDataPtr->getCpuPtr(); }
 		TElem* const getGpuPtr() const 
