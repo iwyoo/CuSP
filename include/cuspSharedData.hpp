@@ -7,8 +7,7 @@ namespace cusp {
 template <typename TElem, typename TInt>
 class SharedData {
 	public :
-		SharedData(TElem *_cpuPtr, TInt _elemNum, 
-					bool deepCopy=false);
+		SharedData(TElem *_cpuPtr, TInt _elemNum);
 		~SharedData();
 
 		void synchToCPU();
@@ -23,7 +22,6 @@ class SharedData {
 		TElem *gpuPtr;
 		const TInt elemNum;
 		const TInt dataSize;
-		const bool deepCopy;
 };
 
 }

@@ -7,8 +7,7 @@ namespace cusp {
 template <typename TElem, typename TInt>
 class Matrix : public SmartPointer<TElem, TInt> {
 	public:
-		Matrix(TInt row, TInt col, TElem *_cpuPtr, 
-			TInt _elemNum, bool _deepCopy=true);
+		Matrix(TInt row, TInt col, TElem *_cpuPtr, TInt _elemNum);
 
 		Matrix<TElem, TInt> copy(); // explicit deep copy
 

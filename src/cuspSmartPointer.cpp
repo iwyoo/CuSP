@@ -6,12 +6,12 @@ namespace cusp {
 
 template <typename TElem, typename TInt>
 SmartPointer<TElem,TInt>::
-SmartPointer(TElem *_cpuPtr, TInt _elemNum, bool deepCopy)
+SmartPointer(TElem *_cpuPtr, TInt _elemNum)
 {
 	typedef SharedData<TElem, TInt> SharedDataType;
 	typedef std::shared_ptr<SharedDataType> SharedDataPtrType;
 	sharedDataPtr = SharedDataPtrType(
-		new SharedData<TElem,TInt>(_cpuPtr, _elemNum, deepCopy));
+		new SharedData<TElem,TInt>(_cpuPtr, _elemNum));
 }
 
 template <typename TElem, typename TInt>

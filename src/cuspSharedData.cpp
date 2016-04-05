@@ -6,15 +6,9 @@ namespace cusp {
 
 template <typename TElem, typename TInt>
 SharedData<TElem,TInt>::
-SharedData(TElem *_cpuPtr, TInt _elemNum, bool _deepCopy)
-: elemNum(_elemNum), dataSize(_elemNum*sizeof(TElem)), 
-  cpuPtr(_cpuPtr), deepCopy(_deepCopy)
+SharedData(TElem *_cpuPtr, TInt _elemNum)
+: elemNum(_elemNum), dataSize(_elemNum*sizeof(TElem)), cpuPtr(_cpuPtr)
 {
-	if (deepCopy) {
-		cpuPtr = new TElem[elemNum];
-		std::memcpy(cpuPtr, _cpuPtr, dataSize);
-	} else cpuPtr = _cpuPtr;
-
 	cudaMalloc( (void**)&gpuPtr, dataSize);
 	cudaMemcpy( gpuPtr, cpuPtr, dataSize, cudaMemcpyHostToDevice );
 }
@@ -23,7 +17,7 @@ template <typename TElem, typename TInt>
 SharedData<TElem,TInt>::~SharedData()
 {
 	cudaFree(gpuPtr);
-	if (deepCopy) delete [] cpuPtr;
+	delete [] cpuPtr;
 }
 
 template <typename TElem, typename TInt>

@@ -7,8 +7,8 @@ namespace cusp {
 
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt>::
-Matrix(TInt _row, TInt _col, TElem *_cpuPtr, TInt _elemNum, bool _deepCopy)
-: row(_row), col(_col), SmartPointer<TElem, TInt>(_cpuPtr, _elemNum, _deepCopy)
+Matrix(TInt _row, TInt _col, TElem *_cpuPtr, TInt _elemNum)
+: row(_row), col(_col), SmartPointer<TElem, TInt>(_cpuPtr, _elemNum)
 {
 }
 

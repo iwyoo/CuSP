@@ -11,13 +11,8 @@ class SmartPointer {
 		typedef SharedData<TElem, TInt> SharedDataType;
 		typedef std::shared_ptr<SharedDataType> SharedDataPtrType;
 
-		SmartPointer(TElem *_cpuPtr, TInt _elemNum, bool deepCopy=false); 
+		SmartPointer(TElem *_cpuPtr, TInt _elemNum); 
 
-	protected:
-		void synchToCPU()
-			{ sharedDataPtr->synchToCPU(); }
-		void synchToGPU()
-			{ sharedDataPtr->synchToGPU(); }
 		TElem* const getCpuPtr() const 
 			{ return sharedDataPtr->getCpuPtr(); }
 		TElem* const getGpuPtr() const 
@@ -26,10 +21,14 @@ class SmartPointer {
 			{ return sharedDataPtr->getElemNum(); }
 		TInt getDataSize() const 
 			{ return sharedDataPtr->getDataSize(); }
-
 		void flagGPU();
 		void flagCPU();
 	
+	protected:
+		void synchToCPU()
+			{ sharedDataPtr->synchToCPU(); }
+		void synchToGPU()
+			{ sharedDataPtr->synchToGPU(); }
 	private:
 		SharedDataPtrType sharedDataPtr;
 		bool gpuDirtyFlag;
