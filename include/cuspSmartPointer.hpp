@@ -28,9 +28,14 @@ class SmartPointer {
 			{ return sharedDataPtr->getElemNum(); }
 		TInt getDataSize() const 
 			{ return sharedDataPtr->getDataSize(); }
+
+		void flagGPU();
+		void flagCPU();
 	
 	private:
 		SharedDataPtrType sharedDataPtr;
+		bool gpuDirtyFlag;
+		bool cpuDirtyFlag;
 };
 
 }

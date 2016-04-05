@@ -7,8 +7,7 @@ namespace cusp {
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt>::
 Matrix(TInt _row, TInt _col, TElem *_cpuPtr, TInt _elemNum, bool _deepCopy)
-: cpuDirtyFlag(false), gpuDirtyFlag(false), row(_row), col(_col),
-  SmartPointer<TElem, TInt>(_cpuPtr, _elemNum, _deepCopy)
+: row(_row), col(_col), SmartPointer<TElem, TInt>(_cpuPtr, _elemNum, _deepCopy)
 {
 }
 
@@ -47,29 +46,9 @@ ones(TInt row, TInt col, TElem *_cpuPtr)
 }
 
 template <typename TElem, typename TInt>
-void Matrix<TElem, TInt>::flagGPU()
-{
-	if (cpuDirtyFlag) {
-		this->synchToGPU();
-		cpuDirtyFlag = false;
-	}
-	gpuDirtyFlag = true;
-}
-
-template <typename TElem, typename TInt>
-void Matrix<TElem, TInt>::flagCPU()
-{
-	if (gpuDirtyFlag) {
-		this->synchToCPU();
-		gpuDirtyFlag = false;
-	}
-	cpuDirtyFlag = true;
-}
-
-template <typename TElem, typename TInt>
 Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator+=(const TElem b)
 {
-	flagGPU();
+	this->flagGPU();
 
 	matrix_element_add( 
 		this->getGpuPtr(), b, getRow(), getCol());
@@ -78,7 +57,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator+=(const TElem b)
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator-=(const TElem b)
 {
-	flagGPU();
+	this->flagGPU();
 
 	matrix_element_sub( 
 		this->getGpuPtr(), b, getRow(), getCol());
@@ -87,7 +66,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator-=(const TElem b)
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator*=(const TElem b)
 {
-	flagGPU();
+	this->flagGPU();
 
 	matrix_element_mult( 
 		this->getGpuPtr(), b, getRow(), getCol());
@@ -96,7 +75,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator*=(const TElem b)
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator/=(const TElem b)
 {
-	flagGPU();
+	this->flagGPU();
 
 	matrix_element_div( 
 		this->getGpuPtr(), b, getRow(), getCol());
@@ -105,7 +84,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator/=(const TElem b)
 template <typename TElem, typename TInt>
 TElem& Matrix<TElem, TInt>::operator()(const TInt _row, const TInt _col)
 {
-	flagCPU();
+	this->flagCPU();
 	
 	if (_row < 0 || _col < 0 || _row >= row || _col >= col ) {
 		std::cerr << " cusp error : " 
@@ -121,7 +100,7 @@ TElem& Matrix<TElem, TInt>::operator()(const TInt _row, const TInt _col)
 template <typename TElem, typename TInt>
 void Matrix<TElem, TInt>::print()
 {
-	flagCPU();
+	this->flagCPU();
 
 	const TElem *cpuPtr = this->getCpuPtr();
 	for (int i=0;i<row; i++) {

@@ -24,7 +24,6 @@ class Matrix : public SmartPointer<TElem, TInt> {
 		Matrix& operator-=(const TElem b);
 		Matrix& operator*=(const TElem b);
 		Matrix& operator/=(const TElem b);
-
 		TElem& operator()(const TInt _row, const TInt _col);
 
 		// future :
@@ -38,11 +37,6 @@ class Matrix : public SmartPointer<TElem, TInt> {
 	private:
 		TInt row;
 		TInt col;
-		bool gpuDirtyFlag;
-		bool cpuDirtyFlag;
-
-		void flagGPU();
-		void flagCPU();
 };
 
 template <typename TElem = float, typename TInt = unsigned int>

@@ -14,6 +14,26 @@ SmartPointer(TElem *_cpuPtr, TInt _elemNum, bool deepCopy)
 		new SharedData<TElem,TInt>(_cpuPtr, _elemNum, deepCopy));
 }
 
+template <typename TElem, typename TInt>
+void SmartPointer<TElem, TInt>::flagGPU()
+{
+	if (cpuDirtyFlag) {
+		this->synchToGPU();
+		cpuDirtyFlag = false;
+	}
+	gpuDirtyFlag = true;
+}
+
+template <typename TElem, typename TInt>
+void SmartPointer<TElem, TInt>::flagCPU()
+{
+	if (gpuDirtyFlag) {
+		this->synchToCPU();
+		gpuDirtyFlag = false;
+	}
+	cpuDirtyFlag = true;
+}
+
 }
 
 #include "cuspSmartPointer.tpp"
