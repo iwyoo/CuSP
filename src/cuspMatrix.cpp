@@ -82,9 +82,10 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator/=(const TElem b)
 }
 
 template <typename TElem, typename TInt>
-Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator+=(const Matrix& B)
+Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator+=(Matrix& B)
 {
 	this->flagGPU();
+	B.flagGPU();
 
 	// future : error handling
 
@@ -93,9 +94,10 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator+=(const Matrix& B)
 }
 
 template <typename TElem, typename TInt>
-Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator-=(const Matrix& B)
+Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator-=(Matrix& B)
 {
 	this->flagGPU();
+	B.flagGPU();
 
 	// future : error handling
 

@@ -10,12 +10,12 @@ class Matrix : public SmartPointer<TElem, TInt> {
 		Matrix(TInt row, TInt col, TElem *_cpuPtr, 
 			TInt _elemNum, bool _deepCopy=false);
 
-		//Matrix operator+(const Matrix& B);
-		//Matrix operator-(const Matrix& B);
-		//Matrix operator*(const Matrix& B);
-		Matrix& operator+=(const Matrix& B);
-		Matrix& operator-=(const Matrix& B);
-		//Matrix& operator*=(const Matrix B);
+		//Matrix operator+(Matrix& B);
+		//Matrix operator-(Matrix& B);
+		//Matrix operator*(Matrix& B);
+		Matrix& operator+=(Matrix& B);
+		Matrix& operator-=(Matrix& B);
+		//Matrix& operator*=(Matrix& B);
 		//Matrix operator+(const TElem b);
 		//Matrix operator-(const TElem b);
 		//Matrix operator*(const TElem b);
