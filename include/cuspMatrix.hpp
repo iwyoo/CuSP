@@ -7,8 +7,8 @@ namespace cusp {
 template <typename TElem, typename TInt>
 class Matrix : public SmartPointer<TElem, TInt> {
 	public:
-		Matrix(TInt row, TInt col, TElem *_cpuPtr, TInt _elemNum,
-			bool _autoSynch=false, bool _deepCopy=false);
+		Matrix(TInt row, TInt col, TElem *_cpuPtr, 
+			TInt _elemNum, bool _deepCopy=false);
 
 		//Matrix operator+(const Matrix B);
 		//Matrix operator-(const Matrix B);
@@ -25,14 +25,11 @@ class Matrix : public SmartPointer<TElem, TInt> {
 		Matrix& operator*=(const TElem b);
 		Matrix& operator/=(const TElem b);
 
-			//TElem& operator[](const int idx);
-			//TElem operator[](const int idx);
+		TElem& operator()(const TInt _row, const TInt _col);
 
-		void synch() 
-		{ if (gpuDirtyFlag) SmartPointer<TElem, TInt>::synchToCPU(); }
-			// future : To GPU synch for CPU-only operation.
-		
-		// dotMult(); // future
+		// future :
+		//   dotMult
+		//   custumKernelCall
 		
 		void print();
 		TInt getRow() const { return row; }
@@ -41,18 +38,16 @@ class Matrix : public SmartPointer<TElem, TInt> {
 	private:
 		TInt row;
 		TInt col;
-		const bool autoSynch;
 		bool gpuDirtyFlag;
-			// bool cpuDirtyFlag; // future : For CPU-only operation
+		bool cpuDirtyFlag;
+
+		void flagGPU();
+		void flagCPU();
 };
 
 template <typename TElem = float, typename TInt = unsigned int>
-Matrix<TElem, TInt> ones(TInt row, TInt col, 
-		bool autoSynch=false, TElem *_cpuPtr=NULL);
+Matrix<TElem, TInt> ones(TInt row, TInt col, TElem *_cpuPtr=NULL);
 
 template <typename TElem = float, typename TInt = unsigned int>
-Matrix<TElem, TInt> zeros(TInt row, TInt col,
-		bool autoSynch=false, TElem *_cpuPtr=NULL);
-
-	// future : autoSynch with dirty flag.
+Matrix<TElem, TInt> zeros(TInt row, TInt col, TElem *_cpuPtr=NULL);
 }
