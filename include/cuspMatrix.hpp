@@ -8,7 +8,9 @@ template <typename TElem, typename TInt>
 class Matrix : public SmartPointer<TElem, TInt> {
 	public:
 		Matrix(TInt row, TInt col, TElem *_cpuPtr, 
-			TInt _elemNum, bool _deepCopy=false);
+			TInt _elemNum, bool _deepCopy=true);
+
+		Matrix<TElem, TInt> copy(); // explicit deep copy
 
 		//Matrix operator+(Matrix& B);
 		//Matrix operator-(Matrix& B);
@@ -40,8 +42,9 @@ class Matrix : public SmartPointer<TElem, TInt> {
 };
 
 template <typename TElem = float, typename TInt = unsigned int>
-Matrix<TElem, TInt> ones(TInt row, TInt col, TElem *_cpuPtr=NULL);
+Matrix<TElem, TInt> zeros(TInt row, TInt col, TElem *_cpuPtr=NULL);
 
 template <typename TElem = float, typename TInt = unsigned int>
-Matrix<TElem, TInt> zeros(TInt row, TInt col, TElem *_cpuPtr=NULL);
+Matrix<TElem, TInt> ones(TInt row, TInt col, TElem *_cpuPtr=NULL);
+
 }

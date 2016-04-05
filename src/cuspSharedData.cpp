@@ -23,6 +23,7 @@ template <typename TElem, typename TInt>
 SharedData<TElem,TInt>::~SharedData()
 {
 	cudaFree(gpuPtr);
+	if (deepCopy) delete [] cpuPtr;
 }
 
 template <typename TElem, typename TInt>

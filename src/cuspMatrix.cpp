@@ -1,6 +1,7 @@
 #include "cuspMatrix.hpp"
 #include "cuspCUDA.hpp"
 #include <iostream>
+#include <cstring>
 
 namespace cusp {
 
@@ -25,7 +26,7 @@ zeros(TInt row, TInt col, TElem *_cpuPtr)
 	TInt _elemNum = row*col;
 	if (_cpuPtr == NULL) _cpuPtr = new TElem[_elemNum];
 	for (int i=0; i<row*col; i++) _cpuPtr[i] = 0;
-	return Matrix<TElem, TInt>(row, col, _cpuPtr, _elemNum, true);
+	return Matrix<TElem, TInt>(row, col, _cpuPtr, _elemNum);
 }
 
 template <typename TElem, typename TInt>
@@ -42,7 +43,16 @@ ones(TInt row, TInt col, TElem *_cpuPtr)
 	TInt _elemNum = row*col;
 	if (_cpuPtr == NULL) _cpuPtr = new TElem[_elemNum];
 	for (int i=0; i<row*col; i++) _cpuPtr[i] = 1;
-	return Matrix<TElem, TInt>(row, col, _cpuPtr, _elemNum, true);
+	return Matrix<TElem, TInt>(row, col, _cpuPtr, _elemNum);
+}
+
+template <typename TElem, typename TInt>
+Matrix<TElem, TInt>
+Matrix<TElem, TInt>::copy()
+{
+	TElem *_cpuPtr = new TElem[this->getElemNum()];
+	memcpy(_cpuPtr, this->getCpuPtr(), this->getDataSize());
+	return Matrix<TElem, TInt>(row, col, _cpuPtr, this->getElemNum());
 }
 
 template <typename TElem, typename TInt>

@@ -14,8 +14,6 @@ class SmartPointer {
 		SmartPointer(TElem *_cpuPtr, TInt _elemNum, bool deepCopy=false); 
 
 	protected:
-		// virtual void synch() = 0; // future
-
 		void synchToCPU()
 			{ sharedDataPtr->synchToCPU(); }
 		void synchToGPU()
