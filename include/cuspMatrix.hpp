@@ -25,6 +25,9 @@ class Matrix : public SmartPointer<TElem, TInt> {
 		Matrix& operator*=(const TElem b);
 		Matrix& operator/=(const TElem b);
 
+			//TElem& operator[](const int idx);
+			//TElem operator[](const int idx);
+
 		void synch() 
 		{ if (gpuDirtyFlag) SmartPointer<TElem, TInt>::synchToCPU(); }
 			// future : To GPU synch for CPU-only operation.
@@ -50,4 +53,6 @@ Matrix<TElem, TInt> ones(TInt row, TInt col,
 template <typename TElem = float, typename TInt = unsigned int>
 Matrix<TElem, TInt> zeros(TInt row, TInt col,
 		bool autoSynch=false, TElem *_cpuPtr=NULL);
+
+	// future : autoSynch with dirty flag.
 }
