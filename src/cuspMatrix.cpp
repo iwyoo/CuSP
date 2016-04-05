@@ -82,6 +82,29 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator/=(const TElem b)
 }
 
 template <typename TElem, typename TInt>
+Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator+=(const Matrix& B)
+{
+	this->flagGPU();
+
+	// future : error handling
+
+	matrix_matrix_add( 
+		this->getGpuPtr(), B.getGpuPtr(), getRow(), getCol());
+}
+
+template <typename TElem, typename TInt>
+Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator-=(const Matrix& B)
+{
+	this->flagGPU();
+
+	// future : error handling
+
+	matrix_matrix_sub( 
+		this->getGpuPtr(), B.getGpuPtr(), getRow(), getCol());
+}
+
+
+template <typename TElem, typename TInt>
 TElem& Matrix<TElem, TInt>::operator()(const TInt _row, const TInt _col)
 {
 	this->flagCPU();
