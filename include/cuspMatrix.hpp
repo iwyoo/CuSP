@@ -21,9 +21,9 @@ class Matrix : public SmartPointer<TElem, TInt> {
 		//Matrix operator*(const TElem b);
 		//Matrix operator/(const TElem b);
 		Matrix& operator+=(const TElem b);
-		//Matrix& operator-=(const TElem b);
-		//Matrix& operator*=(const TElem b);
-		//Matrix& operator/=(const TElem b);
+		Matrix& operator-=(const TElem b);
+		Matrix& operator*=(const TElem b);
+		Matrix& operator/=(const TElem b);
 
 		void synch() 
 		{ if (gpuDirtyFlag) SmartPointer<TElem, TInt>::synchToCPU(); }
