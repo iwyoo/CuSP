@@ -7,43 +7,43 @@ namespace cusp {
 template <typename TElem, typename TInt>
 class Matrix : public SmartPointer<TElem, TInt> {
 	public:
-		Matrix(TInt row, TInt col, TElem *_cpuPtr, TInt _elemNum);
+		Matrix(TInt _nRow, TInt _nCol, TElem *_cpuPtr, TElem *_gpuPtr=NULL);
+		Matrix<TElem, TInt> copy();
 
-		Matrix<TElem, TInt> copy(); // explicit deep copy
-
-		//Matrix operator+(Matrix& B);
-		//Matrix operator-(Matrix& B);
+		Matrix operator+(Matrix& B);
+		Matrix operator-(Matrix& B);
 		//Matrix operator*(Matrix& B);
 		Matrix& operator+=(Matrix& B);
 		Matrix& operator-=(Matrix& B);
 		//Matrix& operator*=(Matrix& B);
-		//Matrix operator+(const TElem b);
-		//Matrix operator-(const TElem b);
-		//Matrix operator*(const TElem b);
-		//Matrix operator/(const TElem b);
+		Matrix operator+(const TElem b);
+		Matrix operator-(const TElem b);
+		Matrix operator*(const TElem b);
+		Matrix operator/(const TElem b);
 		Matrix& operator+=(const TElem b);
 		Matrix& operator-=(const TElem b);
 		Matrix& operator*=(const TElem b);
 		Matrix& operator/=(const TElem b);
-		TElem& operator()(const TInt _row, const TInt _col);
+		TElem& operator()(const TInt _nRow, const TInt _nCol);
+		
+		void print();
+		TInt getRow() const { return nRow; }
+		TInt getCol() const { return nCol; }
+		
 
 		// future :
 		//   dotMult
 		//   custumKernelCall
-		
-		void print();
-		TInt getRow() const { return row; }
-		TInt getCol() const { return col; }
-		
+
 	private:
-		TInt row;
-		TInt col;
+		TInt nRow;
+		TInt nCol;
 };
 
 template <typename TElem = float, typename TInt = int>
-Matrix<TElem, TInt> zeros(TInt row, TInt col, TElem *_cpuPtr=NULL);
+Matrix<TElem, TInt> zeros(TInt nRow, TInt nCol, TElem *_cpuPtr=NULL);
 
 template <typename TElem = float, typename TInt = int>
-Matrix<TElem, TInt> ones(TInt row, TInt col, TElem *_cpuPtr=NULL);
+Matrix<TElem, TInt> ones(TInt nRow, TInt nCol, TElem *_cpuPtr=NULL);
 
 }

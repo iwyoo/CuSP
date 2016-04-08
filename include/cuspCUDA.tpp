@@ -20,4 +20,5 @@ template void matrix_matrix_add<float, int>
 
 template void matrix_matrix_sub<float, int> 
 	(float *a, float *b, int row, int col);
+
 }

@@ -6,12 +6,12 @@ namespace cusp {
 
 template <typename TElem, typename TInt>
 SmartPointer<TElem,TInt>::
-SmartPointer(TElem *_cpuPtr, TInt _elemNum)
+SmartPointer(TElem *_cpuPtr, TElem *_gpuPtr, TInt _elemNum)
 {
 	typedef SharedData<TElem, TInt> SharedDataType;
 	typedef std::shared_ptr<SharedDataType> SharedDataPtrType;
 	sharedDataPtr = SharedDataPtrType(
-		new SharedData<TElem,TInt>(_cpuPtr, _elemNum));
+		new SharedData<TElem,TInt>(_cpuPtr, _gpuPtr, _elemNum));
 }
 
 template <typename TElem, typename TInt>
@@ -32,6 +32,24 @@ void SmartPointer<TElem, TInt>::flagCPU()
 		gpuDirtyFlag = false;
 	}
 	cpuDirtyFlag = true;
+}
+
+template <typename TElem, typename TInt>
+void SmartPointer<TElem, TInt>::flagOFF()
+{
+	gpuDirtyFlag = false;
+	cpuDirtyFlag = false;
+}
+
+template <typename TElem, typename TInt>
+void SmartPointer<TElem, TInt>::synch()
+{
+	//if (gpuDirtyFlag && cpuDirtyFlag)
+	//	// future : error handling
+	if (gpuDirtyFlag) this->synchToCPU();
+	if (cpuDirtyFlag) this->synchToGPU();
+	gpuDirtyFlag = false;
+	cpuDirtyFlag = false;
 }
 
 }

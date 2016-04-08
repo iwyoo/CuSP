@@ -6,11 +6,14 @@ namespace cusp {
 
 template <typename TElem, typename TInt>
 SharedData<TElem,TInt>::
-SharedData(TElem *_cpuPtr, TInt _elemNum)
+SharedData(TElem *_cpuPtr, TElem *_gpuPtr, TInt _elemNum)
 : elemNum(_elemNum), dataSize(_elemNum*sizeof(TElem)), cpuPtr(_cpuPtr)
 {
 	cudaMalloc( (void**)&gpuPtr, dataSize);
-	cudaMemcpy( gpuPtr, cpuPtr, dataSize, cudaMemcpyHostToDevice );
+	if (_gpuPtr == NULL)
+		cudaMemcpy( gpuPtr, cpuPtr, dataSize, cudaMemcpyHostToDevice );
+	else
+		cudaMemcpy( gpuPtr, _gpuPtr, dataSize, cudaMemcpyDeviceToDevice);
 }
 
 template <typename TElem, typename TInt>

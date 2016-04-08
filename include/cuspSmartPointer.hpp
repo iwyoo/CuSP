@@ -11,7 +11,7 @@ class SmartPointer {
 		typedef SharedData<TElem, TInt> SharedDataType;
 		typedef std::shared_ptr<SharedDataType> SharedDataPtrType;
 
-		SmartPointer(TElem *_cpuPtr, TInt _elemNum); 
+		SmartPointer(TElem *_cpuPtr, TElem *_gpuPtr, TInt _elemNum); 
 
 		TElem* const getCpuPtr() const 
 			{ return sharedDataPtr->getCpuPtr(); }
@@ -23,6 +23,8 @@ class SmartPointer {
 			{ return sharedDataPtr->getDataSize(); }
 		void flagGPU();
 		void flagCPU();
+		void flagOFF();
+		void synch();
 	
 	protected:
 		void synchToCPU()
