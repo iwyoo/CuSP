@@ -40,10 +40,10 @@ class Matrix : public SmartPointer<TElem, TInt> {
 		TInt col;
 };
 
-template <typename TElem = float, typename TInt = unsigned int>
+template <typename TElem = float, typename TInt = int>
 Matrix<TElem, TInt> zeros(TInt row, TInt col, TElem *_cpuPtr=NULL);
 
-template <typename TElem = float, typename TInt = unsigned int>
+template <typename TElem = float, typename TInt = int>
 Matrix<TElem, TInt> ones(TInt row, TInt col, TElem *_cpuPtr=NULL);
 
 }
