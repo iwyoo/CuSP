@@ -3,21 +3,25 @@
 ### CUDA Smart Pointer object library 
 - example
 ```
+#include <cusp>
+
 if ( condition ) { 
 	// in a scope
 
-    auto a = ones(2,2); // automatically GPU memories are allocated.
-    a *= 5;            // automatically GPU computes the result.
+	// automatically GPU memories are allocated.
+    auto a = cusp::ones(2,2); 
+
+	// automatically GPU computes the result.
+    a *= 3;            		  
 
 	auto b = a*2;
-
 	b(0,0) = 3;
 	b.print();
 
 	// it prints,
 	//
-	// 3 5
-	// 5 5
+	// 3 6
+	// 6 6
 	//
 
 } // automatically GPU memories are freed.
