@@ -2,9 +2,9 @@
 
 ### CUDA Smart Pointer object library 
 - example
-```
+```cpp
 #include <cusp>
-
+...
 if ( condition ) { 
 	// in a scope
 
