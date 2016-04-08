@@ -64,6 +64,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator+=(const TElem b)
 	this->flagGPU();
 	matrix_element_add( 
 		this->getGpuPtr(), b, getRow(), getCol());
+	return (*this);
 }
 
 template <typename TElem, typename TInt>
@@ -72,6 +73,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator-=(const TElem b)
 	this->flagGPU();
 	matrix_element_sub( 
 		this->getGpuPtr(), b, getRow(), getCol());
+	return (*this);
 }
 
 template <typename TElem, typename TInt>
@@ -80,6 +82,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator*=(const TElem b)
 	this->flagGPU();
 	matrix_element_mult( 
 		this->getGpuPtr(), b, getRow(), getCol());
+	return (*this);
 }
 
 template <typename TElem, typename TInt>
@@ -88,6 +91,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator/=(const TElem b)
 	this->flagGPU();
 	matrix_element_div( 
 		this->getGpuPtr(), b, getRow(), getCol());
+	return (*this);
 }
 
 template <typename TElem, typename TInt>
@@ -152,6 +156,7 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator+=(Matrix& B)
 
 	matrix_matrix_add( 
 		this->getGpuPtr(), B.getGpuPtr(), getRow(), getCol());
+	return (*this);
 }
 
 template <typename TElem, typename TInt>
@@ -164,21 +169,28 @@ Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator-=(Matrix& B)
 
 	matrix_matrix_sub( 
 		this->getGpuPtr(), B.getGpuPtr(), getRow(), getCol());
+	return (*this);
 }
 
-/*
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt>& Matrix<TElem, TInt>::operator*=(Matrix& B)
 {
-	this->flagGPU();
+	// future : error handling
+	if (this->getCol() != B.getRow()) exit(EXIT_FAILURE);
+
+	this->synch();
 	B.synch();
 
-	// future : error handling
+	// future : type specifying
+	auto tmpMat = zeros(this->getRow(), B.getCol());
+	tmpMat.flagGPU();
 
 	matrix_matrix_mult( 
-		this->getGpuPtr(), B.getGpuPtr(), getRow(), getCol());
+		this->getGpuPtr(), B.getGpuPtr(), tmpMat.getGpuPtr(),
+			this->getRow(), this->getCol(), B.getCol());
+	(*this) = tmpMat;
+	return (*this);
 }
-*/
 
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt> Matrix<TElem, TInt>::operator+(Matrix& B)
@@ -198,32 +210,35 @@ Matrix<TElem, TInt> Matrix<TElem, TInt>::operator+(Matrix& B)
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt> Matrix<TElem, TInt>::operator-(Matrix& B)
 {
+	// future : error handling
+	//
 	Matrix<TElem, TInt> tmpMat = this->copy();
 	B.synch();
 	tmpMat.flagGPU();
-
-	// future : error handling
 
 	matrix_matrix_sub( 
 		tmpMat.getGpuPtr(), B.getGpuPtr(), getRow(), getCol());
 	return tmpMat;
 }
 
-/*
 template <typename TElem, typename TInt>
 Matrix<TElem, TInt> Matrix<TElem, TInt>::operator*(Matrix& B)
 {
-	Matrix<TElem, TInt> tmpMat = this->copy();
+	// future : error handling
+	if (this->getCol() != B.getRow()) exit(EXIT_FAILURE);
+
+	this->synch();
 	B.synch();
+
+	// future : type specifying
+	auto tmpMat = zeros(this->getRow(), B.getCol());
 	tmpMat.flagGPU();
 
-	// future : error handling
-
 	matrix_matrix_mult(
-		tmpMat.getGpuPtr(), B.getGpuPtr(), getRow(), getCol());
+		this->getGpuPtr(), B.getGpuPtr(), tmpMat.getGpuPtr(), 
+			this->getRow(), this->getCol(), B.getCol());
 	return tmpMat;
 }
-*/
 
 template <typename TElem, typename TInt>
 TElem& Matrix<TElem, TInt>::operator()(const TInt _nRow, const TInt _nCol)

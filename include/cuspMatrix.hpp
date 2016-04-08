@@ -12,10 +12,10 @@ class Matrix : public SmartPointer<TElem, TInt> {
 
 		Matrix operator+(Matrix& B);
 		Matrix operator-(Matrix& B);
-		//Matrix operator*(Matrix& B);
+		Matrix operator*(Matrix& B);
 		Matrix& operator+=(Matrix& B);
 		Matrix& operator-=(Matrix& B);
-		//Matrix& operator*=(Matrix& B);
+		Matrix& operator*=(Matrix& B);
 		Matrix operator+(const TElem b);
 		Matrix operator-(const TElem b);
 		Matrix operator*(const TElem b);
@@ -30,7 +30,6 @@ class Matrix : public SmartPointer<TElem, TInt> {
 		TInt getRow() const { return nRow; }
 		TInt getCol() const { return nCol; }
 		
-
 		// future :
 		//   dotMult
 		//   custumKernelCall
