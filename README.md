@@ -9,10 +9,10 @@ if ( condition ) {
 	// in a scope
 
 	// automatically GPU memories are allocated.
-    auto a = cusp::ones(2,2); 
+	auto a = cusp::ones(2,2); 
 
 	// automatically GPU computes the result.
-    a *= 3;            		  
+	a *= 3;            		  
 
 	auto b = a*2;
 	b(0,0) = 3;
