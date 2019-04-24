@@ -1,6 +1,6 @@
 ## CuSP 
 
-### CUDA Smart Pointer object library 
+### CUDA Smart Pointer: A simple project repository for CUDA
 - example
 ```cpp
 #include <cusp>
